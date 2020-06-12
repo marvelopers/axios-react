@@ -3,19 +3,59 @@ import axios from "axios";
 
 const API_HOST = "http://localhost:8000";
 
+const instance = axios.create({
+  timeout: 3000
+});
+
+
+
+// const header = (url, user) => {
+
+//   let result;
+//   if (url === 'users') {
+//     return result = {
+//       headers: {
+//         'Contents-Type': 'Application/json',
+//         'Authorization': 'LOGGEN_IN'
+//       }
+//     }
+//   }
+//   result = {
+//     headers: {
+//       'Contents-Type': 'Application/json'
+//     }
+//   }
+
+//   return result
+// };
+//==>
+const headerGenerator = (Authotization) => {
+
+  let header = {
+    'Contents-Type': 'Application/json'
+  }
+
+  if (Authotization) {
+    header['Authorization'] = Authotization;
+  }
+
+  return { "headers": header };
+}
+
+
 export const api = {
 
   //App.js 데이터 통신을 위한 data
   getBoardList: async () => {
-    const response = await axios.get(`${API_HOST}/boards`);
+    const response = await instance.get(`${API_HOST}/boards`, headerGenerator());
     return response.data.results;
   },
   getuserList: async () => {
-    const response = await axios.get(`${API_HOST}/users`);
+    const response = await instance.get(`${API_HOST}/users`, headerGenerator("LOGGED_IN"));
     return response.data.results;
   },
   getLevelList: async () => {
-    const response = await axios.get(`${API_HOST}/levels`);
+    const response = await instance.get(`${API_HOST}/levels`, headerGenerator());
     return response.data.results;
   },
 
