@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { api } from './api';
 
-
 function App() {
 
   const getData = async () => {
@@ -29,6 +28,7 @@ function App() {
       console.log('res', res);
       setData(res);
     })
+
   }, [])
 
   ///////////////////////////////////////
